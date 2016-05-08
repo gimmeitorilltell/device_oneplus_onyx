@@ -47,6 +47,7 @@ ro.bluetooth.alwaysbleon=true
 qcom.bluetooth.soc=smd
 
 # Camera
+camera2.portability.force_api=1
 persist.camera.cpp.duplication=false
 media.stagefright.legacyencoder=true
 media.stagefright.less-secure=true
