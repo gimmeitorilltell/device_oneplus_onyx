@@ -204,7 +204,8 @@ PRODUCT_PACKAGES += \
 # RIL
 PRODUCT_PACKAGES += \
     libcnefeatureconfig \
-    libxml2
+    libxml2 \
+    libprotobuf-cpp-full
 
 # Sensors
 PRODUCT_COPY_FILES += \
