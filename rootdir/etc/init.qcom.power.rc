@@ -56,9 +56,19 @@ on enable-low-power
     write /sys/kernel/msm_thermal/sampling_ms 8000
     write /sys/kernel/msm_thermal/enabled 1
 
-    setprop sys.io.scheduler deadline
-    start mpdecision
-
+    setprop sys.io.scheduler zen
+    
+    write /sys/module/msm_hotplug/min_cpus_online 1  
+    write /sys/module/msm_hotplug/cpus_boosted 1
+    write /sys/module/msm_hotplug/down_lock_duration 500
+    write /sys/module/msm_hotplug/boost_lock_duration 1000
+    write /sys/module/msm_hotplug/update_rates 200 5:100 50:50 350:200
+    write /sys/module/msm_hotplug/fast_lane_load 100
+    write /sys/module/msm_hotplug/max_cpus_online_susp 1
+    
+    # Allow for a dimmer backlight
+    write /sys/module/mdss_fb/parameters/backlight_dimmer y
+    
 on charger
     write /sys/module/lpm_levels/enable_low_power/l2 2
     write /sys/module/msm_pm/modes/cpu0/power_collapse/suspend_enabled 1
@@ -93,7 +103,6 @@ on property:recovery.perf.mode=0
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "interactive"
 
 on property:sys.perf.profile=0
-    stop mpdecision
     write /sys/kernel/msm_thermal/user_maxfreq 960000
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
@@ -102,8 +111,15 @@ on property:sys.perf.profile=0
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor "conservative"
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor "conservative"
     write /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor "conservative"
-    start mpdecision
 
+    write /sys/module/msm_hotplug/min_cpus_online 1  
+    write /sys/module/msm_hotplug/cpus_boosted 2
+    write /sys/module/msm_hotplug/down_lock_duration 500
+    write /sys/module/msm_hotplug/boost_lock_duration 2500
+    write /sys/module/msm_hotplug/update_rates 200 5:100 50:50 350:200
+    write /sys/module/msm_hotplug/fast_lane_load 100
+    write /sys/module/msm_hotplug/max_cpus_online_susp 1
+    
     write /sys/class/devfreq/qcom,cpubw.40/governor "powersave"
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor "powersave"
 
@@ -121,7 +137,6 @@ on property:sys.perf.profile=0
     write /sys/kernel/msm_thermal/enabled 1
 
 on property:sys.perf.profile=1
-    stop mpdecision
     write /sys/kernel/msm_thermal/user_maxfreq 0
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
@@ -136,8 +151,15 @@ on property:sys.perf.profile=1
     write /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load 70
     write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 1190400
     write /sys/devices/system/cpu/cpufreq/interactive/target_loads "89 1300000:45 1500000:65 1700000:80 1800000:98"
-    start mpdecision
 
+    write /sys/module/msm_hotplug/min_cpus_online 1  
+    write /sys/module/msm_hotplug/cpus_boosted 2
+    write /sys/module/msm_hotplug/down_lock_duration 500
+    write /sys/module/msm_hotplug/boost_lock_duration 2500
+    write /sys/module/msm_hotplug/update_rates 200 5:100 50:50 350:200
+    write /sys/module/msm_hotplug/fast_lane_load 100
+    write /sys/module/msm_hotplug/max_cpus_online_susp 1
+    
     write /sys/class/devfreq/qcom,cpubw.40/governor "msm_cpufreq"
     write /sys/class/kgsl/kgsl-3d0/devfreq/governor "msm-adreno-tz"
 
@@ -155,7 +177,6 @@ on property:sys.perf.profile=1
     write /sys/kernel/msm_thermal/enabled 1
 
 on property:sys.perf.profile=2
-    stop mpdecision
     write /sys/kernel/msm_thermal/user_maxfreq 0
     write /sys/devices/system/cpu/cpu1/online 1
     write /sys/devices/system/cpu/cpu2/online 1
