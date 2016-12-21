@@ -57,7 +57,6 @@ ro.sf.lcd_density=480
 ro.qualcomm.cabl=0
 
 # QC vendor extension
-ro.frp.pst=/dev/block/bootdevice/by-name/config
 drm.service.enabled=true
 
 # QMI
