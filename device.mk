@@ -108,7 +108,7 @@ PRODUCT_PACKAGES += \
 
 # Doze
 PRODUCT_PACKAGES += \
-    OneplusDoze
+    OnyxDoze
 
 # Graphics
 PRODUCT_PACKAGES += \
